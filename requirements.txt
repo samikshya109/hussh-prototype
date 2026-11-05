@@ -1,0 +1,11 @@
+# Runtime dependencies for the Vercel serverless function (api/index.py).
+# backend/requirements.txt stays the full dev/test list used inside Emergent.
+fastapi==0.141.1
+motor==3.7.1
+pymongo==4.18.2
+pydantic>=2.6.4
+email-validator>=2.2.0
+python-dotenv>=1.0.1
+pyjwt[crypto]>=2.10.1
+cryptography>=42.0.8
+requests>=2.31.0

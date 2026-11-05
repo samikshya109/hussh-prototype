@@ -1,0 +1,13 @@
+# Keep secrets and Emergent-only workspace files out of Vercel uploads.
+.env
+**/.env
+**/.env.*
+**/node_modules
+**/__pycache__
+.ruff_cache
+.emergent
+memory
+plan
+test_reports
+tests
+backend/tests

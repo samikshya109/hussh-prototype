@@ -1,0 +1,228 @@
+{
+  "iteration": 5,
+  "app": "hussh landing page (farm-ts)",
+  "mode": "retest",
+  "passed": 28,
+  "failed": 0,
+  "flaky": 1,
+  "blocked": 0,
+  "test_error": 0,
+  "summary": "Retest of the updated acceptance matrix (hero now pt-121/sm:pb-12 with min-h 100svh + justify-center, dark comparison band, consistent section headers) plus full prior regression. Updated hero-fills-first-screen and section-rhythm-padding to measure gap EQUALITY (nav-bottom -> hero content top vs hero bottom -> hero content bottom) via the hero's non-decorative direct children instead of the old fixed 80/80px assertion -- both now pass with exact 117.19px/117.19px (1440x900) and 48px/48px (1280x720) symmetry, and the 3-line headline text is verified. Added 2 new browser checks: comparison-dark-band-contrast (home-compare bg rgb(31,31,34), white heading, white table card, axe-clean contrast, distinct light home-marketplace that follows) and section-headers-consistency (identical h2 48px/700/line-height/letter-spacing at 1440 and 36px at 390 across all 6 sections, identical pill eyebrow style). Regenerated the expired Clerk sign-in ticket for auth-entry-signed-in. Backend pytest suite (4 cases: 3 signups + 1 design-kit zip) passes. All 26 named regression/new browser checks pass (links-navigate-correctly flaked once on a transient dev-server 429 rate-limit, passed clean on rerun). One check run directly against the public preview ingress URL as a smoke test. 0 bugs found.",
+  "checks": [
+    {
+      "criterion": "Email signups (API)",
+      "name": "backend/tests/test_tscheck_signups.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "4 pytest cases passed against the running server on :8001 (POST /api/signups 201/409/422 + design kit)."
+    },
+    {
+      "criterion": "Design kit download (API)",
+      "name": "backend/tests/test_tscheck_design_kit_download.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /downloads/hussh-design-kit.zip -> 200, application/zip, included in the same pytest run above."
+    },
+    {
+      "criterion": "Hero quick-link tabs higher in first screen / equal gap symmetry / 3-line headline",
+      "name": "hero-fills-first-screen",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440x900: hero height=900 (=viewport), quick-links bottom (782.8) inside viewport, content-top-gap=117.1875px == content-bottom-gap=117.1875px (0px variance). At 1280x720: hero height=724.2 (<=6px over, per briefing tolerance), quick-links fully inside, gapTop=48=gapBottom=48 (0px variance). Headline renders exactly 3 lines: 'Private AI that' / 'lives with you,' / 'not in the cloud.'"
+    },
+    {
+      "criterion": "Distinct comparison (dark band) vs marketplace sections",
+      "name": "comparison-dark-band-contrast",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "home-compare background = rgb(31, 31, 34), h2 color = rgb(255, 255, 255), the focusable comparison-table card resolves to white (rgb(255,255,255)) background inside the dark band; home-marketplace that follows is not rgb(31,31,34) (clear boundary); axe wcag2aa scoped scan of home-compare found 0 color-contrast violations."
+    },
+    {
+      "criterion": "Consistent section headers (h2 + pill eyebrow)",
+      "name": "section-headers-consistency",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "All 6 sections (products, how-it-works, compare, marketplace, ecosystem, get-started) h2: 48px/700/50.4px/-1.44px at 1440, 36px/700/37.8px/-1.08px at 390 -- identical across all. Pill eyebrow (first <p> in each section): 13px font-size, 6px 14px padding, pill border-radius, identical across all 6 at both widths."
+    },
+    {
+      "criterion": "Regression: section rhythm padding incl. new hero gap formula",
+      "name": "section-rhythm-padding",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "products/how-it-works/compare/marketplace/ecosystem/get-started all 96px/96px desktop, 60px/60px mobile. hero gapTop=117.1875=gapBottom=117.1875 (updated from the old fixed-80px assertion per the new pt-121/pb-12 spec)."
+    },
+    {
+      "criterion": "Regression: quick-link own-card highlight",
+      "name": "quick-links-highlight-own-card",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 3 quick-links hash-navigate + highlight their own card and clear; verified at 1440 and 390."
+    },
+    {
+      "criterion": "Regression: coming-soon badge parity/contrast",
+      "name": "tag-one-coming-soon-badge-style",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: style parity with free badge, contrast ratio 6.70:1, at 1440 and 390."
+    },
+    {
+      "criterion": "Regression: rings layout",
+      "name": "rings-bottom-lines-layout",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: legend/outside title left-edges match (x=906), disclaimer full-width alignment verified."
+    },
+    {
+      "criterion": "Regression: footer legal width",
+      "name": "footer-legal-note-full-width",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: legal note shares left/right edges with the copyright row (x=132, width=1176)."
+    },
+    {
+      "criterion": "Regression: how-it-works balance",
+      "name": "how-it-works-balance-layout",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: left column centre vs phone centre diff=4.25px (<=40px tolerance)."
+    },
+    {
+      "criterion": "Regression: WCAG AA axe audit",
+      "name": "wcag-aa-audit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: axe clean at 1440/390, skip-link focus, /sign-in audit."
+    },
+    {
+      "criterion": "Regression: dark nav/brand",
+      "name": "nav-brand-dark",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: header bg rgb(31,31,34), gold CTA pill rgb(232,181,107)/rgb(31,31,34)."
+    },
+    {
+      "criterion": "Regression: nav dropdowns",
+      "name": "nav-dropdowns",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 5 dropdowns visible in viewport with CTA."
+    },
+    {
+      "criterion": "Regression: links navigate correctly",
+      "name": "links-navigate-correctly",
+      "lane": "browser",
+      "status": "flaky",
+      "evidence": "First attempt failed: home-headline not found after nav, console showed 11x HTTP 429 (dev-server rate-limit) on resource loads. Immediate rerun passed cleanly (hero CTA, logo, dropdown link, sign-in link all navigate correctly) -- classified flaky, not a bug."
+    },
+    {
+      "criterion": "Regression: left alignment / no overflow",
+      "name": "layout-alignment",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all section headings x=132 at 1440px, no horizontal overflow."
+    },
+    {
+      "criterion": "Regression: mobile text fit",
+      "name": "mobile-text-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: no overflow at 375px across chips/quick-links/tabs/buttons."
+    },
+    {
+      "criterion": "Regression: closing CTA lines + signup",
+      "name": "closing-cta-lines",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: wave-lines SVG present, fresh-email signup success."
+    },
+    {
+      "criterion": "Regression: email signups (UI)",
+      "name": "email-signups-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: invalid/success/409-duplicate flows verified both products + mobile."
+    },
+    {
+      "criterion": "Regression: comparison table keyboard access",
+      "name": "comparison-table-access",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: focusable region, 0 scrollable-region-focusable violations at 1440/390, mobile stacked cards all 6 rows."
+    },
+    {
+      "criterion": "Regression: ecosystem rings section interactions",
+      "name": "ecosystem-rings-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: legend hover/focus activates ring-device/ring-shield; mobile no overflow."
+    },
+    {
+      "criterion": "Regression: how-it-works tour interactions",
+      "name": "how-it-works-tour",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: pause toggle, step-4 panel, arrow-key step transitions."
+    },
+    {
+      "criterion": "Regression: AI brand chips fit",
+      "name": "ai-brand-chips-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 7 chips fit without clipping at 1440/1024/768/390."
+    },
+    {
+      "criterion": "Regression: hero badge motion",
+      "name": "hero-badge-motion",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: badges drift over time, freeze under reduced-motion, hidden at 390px."
+    },
+    {
+      "criterion": "Regression: Puppy One image has no Apple logo",
+      "name": "puppy-one-no-apple-logo",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: image src unchanged, logo-free asset."
+    },
+    {
+      "criterion": "Regression: marketplace USP section",
+      "name": "marketplace-usp-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: static USP bento layout desktop+mobile."
+    },
+    {
+      "criterion": "Regression: closing CTA button = primary style",
+      "name": "closing-cta-primary-button",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: submit button style identical to nav CTA (rgb(232,181,107)/rgb(31,31,34))."
+    },
+    {
+      "criterion": "Regression: auth entry (signed-in)",
+      "name": "auth-entry-signed-in",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Previous Clerk ticket had expired (expected, 1hr TTL). Regenerated a fresh token for jane+clerk_test@example.com via POST https://api.clerk.com/v1/sign_in_tokens, patched the check; /sign-in?__clerk_ticket=... now completes and nav-user-menu becomes visible."
+    },
+    {
+      "criterion": "Public ingress smoke",
+      "name": "public-preview-smoke",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Loaded https://brand-reborn--6k11q143.preview.emergentagent.com/ directly (public ingress, not APP_URL) -- home-headline and home-compare render correctly."
+    }
+  ],
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "note",
+      "detail": "auth-entry-signed-in embeds a short-lived (1hr TTL) Clerk sign-in token for jane+clerk_test@example.com, regenerated this iteration. On next retest after expiry, regenerate again (POST https://api.clerk.com/v1/sign_in_tokens with CLERK_SECRET_KEY from backend/.env -- note the .env value is double-quoted, strip quotes before using it as a bearer token -- user looked up via GET /v1/users?email_address=...) and patch the `ticket` constant in auth-entry-signed-in.mjs."
+    },
+    {
+      "type": "note",
+      "detail": "links-navigate-correctly flaked once this iteration on a transient dev-server HTTP 429 (rate limiting) during a burst of sequential checks; passed clean on immediate rerun. No application bug -- consider a short delay between consecutive checks if this recurs."
+    }
+  ],
+  "retest_needed": false
+}

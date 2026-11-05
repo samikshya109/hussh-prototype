@@ -1,0 +1,207 @@
+{
+  "iteration": 4,
+  "app": "hussh landing page (farm-ts)",
+  "mode": "retest",
+  "passed": 24,
+  "failed": 0,
+  "flaky": 0,
+  "blocked": 0,
+  "test_error": 0,
+  "summary": "Retest of the new acceptance matrix (quick-link own-card highlight, hero fills first screen with 80px/80px gap symmetry, Tag One coming-soon pill parity + contrast, rings-outside/disclaimer alignment, footer legal note full width, how-it-works left/right balance, design kit download) plus full prior regression. 4 backend pytest cases pass (3 signups + 1 new design-kit zip download). 6 brand-new browser checks + 18 re-run regression checks (incl. a freshly regenerated Clerk ticket for auth-entry-signed-in) all pass -- 24/24 checks green, 0 bugs found.",
+  "checks": [
+    {
+      "criterion": "Email signups (API)",
+      "name": "backend/tests/test_tscheck_signups.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "3 pytest cases passed against the running server on :8001 (POST /api/signups 201/409/422)."
+    },
+    {
+      "criterion": "Design kit download",
+      "name": "backend/tests/test_tscheck_design_kit_download.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET http://localhost:3000/downloads/hussh-design-kit.zip -> 200, content-type application/zip, size 22.6MB (>=20MB). Served from the Vite dev server's publicDir, confirmed also reachable at the public preview host (200, 23722256 bytes)."
+    },
+    {
+      "criterion": "User bug: quick-link tabs all go to the same place",
+      "name": "quick-links-highlight-own-card",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440x900: clicking home-quick-link-agent-one/-puppy-one/-tag-one each sets location.hash to #<id>, scrolls product-card-<id> to within 60% of viewport-centre tolerance (smooth-scroll settle polled via expect().toPass), flips that card's data-highlighted to 'true' while the other two report 'false', and the highlight clears back to 'false' within ~2.5-4s. Verified again at 390px for the puppy-one link (hash #puppy-one, highlighted=true)."
+    },
+    {
+      "criterion": "Hero fills first screen with good spacing",
+      "name": "hero-fills-first-screen",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440x900 and 1280x720: home-hero boundingBox height >= viewport height, #products top is below the first screen (prodBox.y >= viewport height), hero padding-top(153px) - fixed-nav height(73px) = 80px = hero padding-bottom(80px) exactly (0px variance, within the required +-4px). label->h1 gap and p->CTA gap both exceed the 28px/36px minimums."
+    },
+    {
+      "criterion": "Coming soon tag",
+      "name": "tag-one-coming-soon-badge-style",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "tag-one-coming-soon-badge matches agent-one-free-badge's font-size(12px)/font-family(IBM Plex Mono)/padding(4px 10px)/border-radius(pill)/text-transform(uppercase) exactly, with a different emerald background (oklch 0.95,0.052,163) and dark green text (oklch 0.432,0.095,167) resolving to a measured contrast ratio of 6.70:1 (>=4.5:1). Badge vertical centre sits within 10px of the 'Tag One' heading's centre (same line) and its bounding box does not overlap the card image, at both 1440 and 390px."
+    },
+    {
+      "criterion": "Rings section bottom lines laid out",
+      "name": "rings-bottom-lines-layout",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "In #ecosystem at 1440px: rings-outside's title span left edge (x=906) matches the first rings-legend item's title left edge (x=906) exactly, and its 7 brand logo <img> markers are all present (count>=7). rings-disclaimer sits at the section container's left content edge (x=132, same as the section heading) with a non-zero border-top, and its right edge (1308) matches the container's content-box right edge (1308, computed from the max-w-[1240px] wrapper minus its own padding)."
+    },
+    {
+      "criterion": "Footer legal text end to end",
+      "name": "footer-legal-note-full-width",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440px, footer-legal-note's bounding box (x=132, width=1176) shares the same left and right edges as the copyright row (x=132, width=1176) -- 0px variance on both edges."
+    },
+    {
+      "criterion": "How it works balance",
+      "name": "how-it-works-balance-layout",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440px, #how-it-works padding-top/bottom computed to exactly 96px/96px. The left column (heading through how-step-4) vertical centre (y=2524) sits within 4.25px of how-phone's panel centre (y=2528), well inside the +-40px tolerance; the phone sits to the right of the step list on x. Clicking how-step-4 sets aria-selected=true and the how-autoplay-toggle button's label text changes on click (pause/resume still wired)."
+    },
+    {
+      "criterion": "Regression + WCAG",
+      "name": "wcag-aa-audit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: axe wcag2a/aa/21a/21aa clean at 1440 and 390 (reduced motion, settled), skip-link keyboard focus, /sign-in audit all verified."
+    },
+    {
+      "criterion": "Regression: dark nav + brand",
+      "name": "nav-brand-dark",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: header bg rgb(31,31,34) top/scrolled; nav-get-agent-one-button gold pill rgb(232,181,107)/rgb(31,31,34)."
+    },
+    {
+      "criterion": "Regression: nav dropdowns",
+      "name": "nav-dropdowns",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 5 dropdowns open inside viewport with visible CTA to #get-started."
+    },
+    {
+      "criterion": "Regression: all links work",
+      "name": "links-navigate-correctly",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: hero CTA, logo click, nav dropdown link, sign-in page link all navigate correctly (no repeat of the prior iteration's one-off timing flake)."
+    },
+    {
+      "criterion": "Regression: left alignment / no overflow",
+      "name": "layout-alignment",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: section headings all x=132 at 1440px across top/products/how-it-works/marketplace/ecosystem; no horizontal overflow at 375/1440px."
+    },
+    {
+      "criterion": "Regression: mobile text fit (chips/buttons)",
+      "name": "mobile-text-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: no overflow at 375px across hero chips, quick-links, step tabs, submit buttons."
+    },
+    {
+      "criterion": "Regression: closing CTA flowing lines + signup",
+      "name": "closing-cta-lines",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: WaveLines SVG present behind card, fresh-email signup success confirmed."
+    },
+    {
+      "criterion": "Regression: email signups (UI)",
+      "name": "email-signups-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: Tag One invalid/success/duplicate(409), Agent One success, mobile submit button all verified."
+    },
+    {
+      "criterion": "Regression: comparison table keyboard access",
+      "name": "comparison-table-access",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: focusable region + 0 scrollable-region-focusable violations at 1440/390px; mobile stacked cards show all 6 rows."
+    },
+    {
+      "criterion": "Regression: ecosystem rings section",
+      "name": "ecosystem-rings-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: legend hover/focus sets ring-device/ring-shield active states; mobile chip list has no overflow."
+    },
+    {
+      "criterion": "Regression: how-it-works tour",
+      "name": "how-it-works-tour",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: pause toggle, step-4 panel, arrow-key step transitions verified."
+    },
+    {
+      "criterion": "Regression: AI brand chips fit",
+      "name": "ai-brand-chips-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 7 ai-brand-<name> chips fit without clipping/overlap at 1440/1024/768/390px."
+    },
+    {
+      "criterion": "Regression: hero badge motion",
+      "name": "hero-badge-motion",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: badges drift over time at 1024px, freeze under reduced motion, hidden at 390px."
+    },
+    {
+      "criterion": "Regression: Puppy One image has no Apple logo",
+      "name": "puppy-one-no-apple-logo",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: product-card-puppy-one img src hash unchanged (logo-free asset)."
+    },
+    {
+      "criterion": "Regression: marketplace USP section",
+      "name": "marketplace-usp-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: static USP bento (share/price/approve/earn) layout verified desktop + mobile, no step-tour remnants."
+    },
+    {
+      "criterion": "Regression: closing CTA button = primary",
+      "name": "closing-cta-primary-button",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: agent-one-signup-submit-button computed style rgb(232,181,107)/rgb(31,31,34) identical to nav CTA."
+    },
+    {
+      "criterion": "Regression: section rhythm padding (hero 153/80, others 96/60)",
+      "name": "section-rhythm-padding",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name (unchanged check already asserts the generic padding-top-minus-nav-height == padding-bottom invariant): products/how-it-works/marketplace/ecosystem/get-started/comparison all 96px desktop / 60px mobile; hero heroGapTop=80, heroGapBottom=80 (0px variance) matching the briefing's updated 153pt/80pb hero spec."
+    },
+    {
+      "criterion": "Regression: auth entry (signed-in)",
+      "name": "auth-entry-signed-in",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Previous ticket had expired (confirmed by a 400 + stuck on /sign-in?__clerk_ticket=... on first attempt this iteration). Regenerated a fresh 1hr Clerk sign-in ticket for jane+clerk_test@example.com via POST https://api.clerk.com/v1/sign_in_tokens and patched it into the check; /sign-in?__clerk_ticket=... now completes and nav-user-menu becomes visible."
+    }
+  ],
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "note",
+      "detail": "auth-entry-signed-in embeds a short-lived (1hr TTL) Clerk sign-in token for jane+clerk_test@example.com, regenerated this iteration (expired again since last run, as expected). On next retest after expiry, regenerate again (POST https://api.clerk.com/v1/sign_in_tokens with CLERK_SECRET_KEY, user looked up via GET /v1/users?email_address=...) and patch the `ticket` constant in auth-entry-signed-in.mjs."
+    },
+    {
+      "type": "note",
+      "detail": "design kit zip is served as a static asset by the Vite frontend dev server (publicDir) on :3000, not by the FastAPI backend on :8001 -- the new backend test hits :3000 directly, matching what the browser/public preview URL actually resolves (confirmed 200 application/zip on both localhost:3000 and the public preview host)."
+    }
+  ],
+  "retest_needed": false
+}

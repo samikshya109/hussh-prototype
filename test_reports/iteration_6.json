@@ -1,0 +1,63 @@
+{
+  "iteration": 6,
+  "app": "hussh landing page (farm-ts)",
+  "mode": "retest",
+  "passed": 4,
+  "failed": 0,
+  "flaky": 0,
+  "blocked": 0,
+  "test_error": 0,
+  "summary": "Retest targeting the autofill/light-box bug fix on the signup email inputs and nav search input, plus spot re-run of 3 named checks per briefing. Backend pytest suite (4 cases) re-run clean. New browser check email-search-input-no-light-box confirms: stylesheet has input:-webkit-autofill rules with -webkit-text-fill-color + long background-color transition; agent-one-signup-email-input (dark card) shows box-shadow none / transparent bg / light text rgb(245,242,236) on both click-focus and programmatic focus; tag-one-signup-email-input (light card) box-shadow none; search-input has aria-label 'Search hussh', box-shadow none, transparent bg, white text, and results still filter by query ('agent' returned matching rows). Visual screenshots confirm no white/light halo box behind any of these inputs and the search bar shows a gold underline instead. Re-ran email-signups-flow, wcag-aa-audit, nav-dropdowns by name -- all passed (wcag-aa-audit confirms axe wcag2a/aa/21aa clean at 1440/390 and visible focus ring on skip-link). 0 bugs found.",
+  "checks": [
+    {
+      "criterion": "Email signups (API) -- regression sanity",
+      "name": "backend/tests/test_tscheck_signups.py + test_tscheck_design_kit_download.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "4 pytest cases passed against running server on :8001 (0.47s)."
+    },
+    {
+      "criterion": "User bug: light box behind typed/autofilled email in 'Bring your life back home' field (and tag-one card)",
+      "name": "email-search-input-no-light-box",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Stylesheet contains input:-webkit-autofill rule with -webkit-text-fill-color + background-color transition >=100s. agent-one-signup-email-input: box-shadow 'none', bg transparent, color rgb(245,242,236) on click-focus AND programmatic focus (keyboard-equivalent). tag-one-signup-email-input: box-shadow 'none'. Screenshot confirms no visible halo/box around either pill."
+    },
+    {
+      "criterion": "User bug: same box on search",
+      "name": "email-search-input-no-light-box",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "search-input aria-label='Search hussh', box-shadow 'none', bg transparent, color rgb(255,255,255) after click+typing 'agent'; results list still renders filtered matches (Overview/Morning Brief/On-device vault/etc. for Agent One). Screenshot shows gold bottom border on the search row, no white box."
+    },
+    {
+      "criterion": "Keyboard focus still visible elsewhere / axe clean",
+      "name": "wcag-aa-audit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: axe wcag2a/wcag2aa/wcag21aa clean at 1440 and 390, skip-link focus ring visible, /sign-in audit clean."
+    },
+    {
+      "criterion": "Regression: nav dropdowns",
+      "name": "nav-dropdowns",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 5 dropdowns (Agent One, Products, Marketplace, For Business, Company) visible in viewport with CTA."
+    },
+    {
+      "criterion": "Regression: email signups flow (UI)",
+      "name": "email-signups-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: invalid/success/409-duplicate flows verified both products + mobile (one expected 409 console error from the duplicate-email negative case)."
+    }
+  ],
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "note",
+      "detail": "Per instructions this retest only re-ran email-signups-flow, wcag-aa-audit and nav-dropdowns by name (not the full 26-check regression suite from iteration_5); those three plus the new autofill-box check all passed. Full regression suite from iteration_5 was not re-executed this pass -- recommend a full re-run if broader confidence is needed before next release."
+    }
+  ],
+  "retest_needed": false
+}

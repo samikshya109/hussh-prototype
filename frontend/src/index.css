@@ -1,0 +1,209 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/plus-jakarta-sans";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Plus Jakarta Sans Variable', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --color-gold: #e8b56b;
+    --color-gold-soft: #f0c98a;
+    --color-gold-2: #c98a3e;
+    --color-gold-deep: #8a5c14;
+    --color-ink: #1f1f22;
+    --color-ink-2: #28282c;
+    --color-ivory: #faf8f5;
+    --color-ivory-2: #f3efe6;
+    --font-serif: 'Playfair Display Variable', Georgia, serif;
+    --color-bubble: #f9b8cf;
+    --color-butter: #ffe08a;
+    --color-coral: #f26b5b;
+    --color-sky: #a9cbef;
+    --color-mint: #bfe3cf;
+    --animate-dash: dash 1.2s linear infinite;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+
+    --animate-halo: halo 5s ease-in-out infinite;
+    --animate-float: float 7s ease-in-out infinite;
+    --animate-drift: drift 22s linear infinite;
+    --animate-marquee: marquee 38s linear infinite;
+    --animate-blink: blink 2.4s ease-in-out infinite;
+}
+
+@keyframes halo {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.06); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(-1.5deg); }
+}
+@keyframes drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@keyframes dash {
+    to { stroke-dashoffset: -16; }
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-halo, .animate-float, .animate-drift, .animate-marquee, .animate-blink, .animate-dash { animation: none !important; }
+}
+
+:root {
+    --background: #faf8f5;
+    --foreground: #111318;
+    --card: #ffffff;
+    --card-foreground: #111318;
+    --popover: #ffffff;
+    --popover-foreground: #111318;
+    --primary: #0d0f12;
+    --primary-foreground: #faf8f5;
+    --secondary: #f3efe6;
+    --secondary-foreground: #111318;
+    --muted: #f3efe6;
+    --muted-foreground: #5b5f68;
+    --accent: #f3efe6;
+    --accent-foreground: #111318;
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: #e5e1d8;
+    --input: #e5e1d8;
+    --ring: #d9a54c;
+    --chart-1: #d9a54c;
+    --chart-2: #8a5c14;
+    --chart-3: #5b5f68;
+    --chart-4: #15181d;
+    --chart-5: #e8c07a;
+    --radius: 0.75rem;
+    --sidebar: #faf8f5;
+    --sidebar-foreground: #111318;
+    --sidebar-primary: #0d0f12;
+    --sidebar-primary-foreground: #faf8f5;
+    --sidebar-accent: #f3efe6;
+    --sidebar-accent-foreground: #111318;
+    --sidebar-border: #e5e1d8;
+    --sidebar-ring: #d9a54c;
+}
+
+.dark {
+    --background: #0d0f12;
+    --foreground: #f5f2ec;
+    --card: #15181d;
+    --card-foreground: #f5f2ec;
+    --popover: #15181d;
+    --popover-foreground: #f5f2ec;
+    --primary: #f5f2ec;
+    --primary-foreground: #0d0f12;
+    --secondary: #1c2027;
+    --secondary-foreground: #f5f2ec;
+    --muted: #1c2027;
+    --muted-foreground: #9aa0aa;
+    --accent: #1c2027;
+    --accent-foreground: #f5f2ec;
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: rgb(255 255 255 / 10%);
+    --input: rgb(255 255 255 / 15%);
+    --ring: #d9a54c;
+    --chart-1: #d9a54c;
+    --chart-2: #e8c07a;
+    --chart-3: #9aa0aa;
+    --chart-4: #1c2027;
+    --chart-5: #8a5c14;
+    --sidebar: #0d0f12;
+    --sidebar-foreground: #f5f2ec;
+    --sidebar-primary: #d9a54c;
+    --sidebar-primary-foreground: #0d0f12;
+    --sidebar-accent: #1c2027;
+    --sidebar-accent-foreground: #f5f2ec;
+    --sidebar-border: rgb(255 255 255 / 10%);
+    --sidebar-ring: #d9a54c;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground antialiased;
+    }
+  html {
+    @apply font-sans scroll-smooth;
+    }
+  /* WCAG 2.4.7: one visible focus ring that works on light and dark surfaces. */
+  :focus-visible {
+    outline: 2px solid #1f1f22;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px #ffffff;
+    }
+  /* Bare inputs inside a styled field (email pill, search bar) show focus on their wrapper instead. */
+  input.outline-none:focus-visible {
+    box-shadow: none;
+    }
+  /* Stop Chrome/Safari autofill painting a light-blue box and dark text inside our fields. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: inherit;
+    caret-color: currentColor;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset;
+    transition: background-color 99999s ease-out 0s, color 99999s ease-out 0s;
+    }
+  input:autofill {
+    background-color: transparent;
+    }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    }
+}

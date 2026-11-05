@@ -1,0 +1,208 @@
+{
+  "theme_strategy": {
+    "archetype": "LUXURY_AND_SOVEREIGN_TECH",
+    "mode": "hybrid_editorial",
+    "description": "Dark luxury charcoal/obsidian hero and closing band paired with warm ivory/alabaster light midsections. Gold/amber is the solitary sovereign kinetic accent. Elegant subtle geometric and wavy line background SVG patterns."
+  },
+  "typography": {
+    "primary_font": "Plus Jakarta Sans Variable",
+    "display_font": "Plus Jakarta Sans Variable",
+    "heading_font": "Plus Jakarta Sans Variable",
+    "mono_font": "IBM Plex Mono",
+    "body_font": "Plus Jakarta Sans Variable",
+    "fontsource_import": "@fontsource-variable/plus-jakarta-sans",
+    "mono_import": "@fontsource/ibm-plex-mono",
+    "scale_px": {
+      "display": 56,
+      "h1": 48,
+      "h2": 36,
+      "h3": 24,
+      "body": 16,
+      "caption": 14
+    },
+    "rules": {
+      "display": "font-bold tracking-tight text-4xl sm:text-5xl lg:text-[54px] leading-[1.08]",
+      "h2": "font-bold tracking-tight text-3xl sm:text-4xl text-neutral-900 dark:text-neutral-50",
+      "h3": "font-semibold tracking-tight text-xl sm:text-2xl",
+      "body": "font-normal text-base leading-relaxed tracking-normal",
+      "label": "uppercase text-xs font-semibold tracking-[0.2em] text-amber-500",
+      "mono": "font-mono text-xs sm:text-sm"
+    }
+  },
+  "colors": {
+    "accent": "#F5A623",
+    "accent_hover": "#E09612",
+    "on_accent": "#0D0F12",
+    "surfaces": [
+      {
+        "name": "hero_dark",
+        "kind": "solid",
+        "bg": "#0D0F12",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "link": "#F5A623",
+          "accent_gold": "#F5A623",
+          "border": "#22272E",
+          "badge_bg": "#1C2128",
+          "badge_text": "#F5A623"
+        }
+      },
+      {
+        "name": "warm_ivory_page",
+        "kind": "solid",
+        "bg": "#FAF8F5",
+        "on_bg": "#111827",
+        "on_bg_muted": "#4B5563",
+        "roles": {
+          "link": "#D97706",
+          "card_bg": "#FFFFFF",
+          "card_border": "#E5E1D8",
+          "badge_bg": "#F3EFE6",
+          "badge_text": "#92400E"
+        }
+      },
+      {
+        "name": "dark_band",
+        "kind": "solid",
+        "bg": "#090A0C",
+        "on_bg": "#F1F5F9",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "link": "#F5A623",
+          "tag_bg": "#161920",
+          "tag_border": "#262D38"
+        }
+      },
+      {
+        "name": "nav_glass",
+        "kind": "glass",
+        "contrast_against": "#0D0F12",
+        "guarantee": "backdrop-blur-xl bg-[#0D0F12]/80 border-b border-white/10",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "cta_bg": "#F5A623",
+          "cta_text": "#0D0F12"
+        }
+      },
+      {
+        "name": "footer_dark",
+        "kind": "solid",
+        "bg": "#08090B",
+        "on_bg": "#F1F5F9",
+        "on_bg_muted": "#64748B",
+        "roles": {
+          "heading": "#FFFFFF",
+          "link_hover": "#F5A623",
+          "border": "#1A1D24"
+        }
+      }
+    ]
+  },
+  "entry_surfaces": {
+    "/": "dark sovereign hero with animated gold halo mascot left-offset, value proposition headline with gold 'owned by you', trust badges row, and interactive nav"
+  },
+  "navigation_spec": {
+    "desktop": {
+      "structure": "Branded Hussh Shh mark + 5 dropdown items (Agent One, Products, Marketplace, For Business, Company) + Search trigger + Account icon + 'Get Agent One' Gold CTA",
+      "reduction": "Streamlined from 7 noisy dropdowns to 5 high-impact menus. Blog and User Guide housed under Company -> Learn.",
+      "dropdown_menus": {
+        "Agent One": [
+          {"label": "Overview", "desc": "Sovereign AI personal operating agent", "badge": "Core"},
+          {"label": "On-Device Vault", "desc": "Encrypted local zero-knowledge store", "badge": "Safe"},
+          {"label": "Morning Brief", "desc": "Daily automated synthesis of your digital world"},
+          {"label": "Download Desktop & Mobile", "desc": "macOS, iOS, Windows & Android"}
+        ],
+        "Products": [
+          {"label": "Agent One", "desc": "Autonomous personal executive assistant"},
+          {"label": "Puppy One", "desc": "Playful companion AI for intuitive search & habits", "badge": "New"},
+          {"label": "Tag One", "desc": "Physical smart asset beacon with sovereign pairing", "badge": "Waitlist"},
+          {"label": "hussh Shop", "desc": "Hardware tokens & sovereign companion devices"}
+        ],
+        "Marketplace": [
+          {"label": "Data Exchange", "desc": "Monetize insights on your terms & price"},
+          {"label": "Verified Brands", "desc": "Connect with privacy-first partner offers"},
+          {"label": "Pricing & Revenue Share", "desc": "Transparent 0% custody take rate"}
+        ],
+        "For Business": [
+          {"label": "Enterprise Enclaves", "desc": "Deploy sovereign fleet intelligence"},
+          {"label": "Compliance & Zero Knowledge", "desc": "HIPAA, GDPR & SOC2 sovereign bridge"},
+          {"label": "Book Enterprise Demo", "desc": "Talk with sovereign security architects"}
+        ],
+        "Company": [
+          {"label": "About hussh", "desc": "Our mission to give humans data sovereignty"},
+          {"label": "Manifesto", "desc": "Why AI must belong to the individual"},
+          {"label": "Learn & Guides", "desc": "Documentation, zero-leak guides & tutorials"},
+          {"label": "Blog & Research", "desc": "Updates on local SLMs and cryptography"},
+          {"label": "Careers", "desc": "We are hiring cryptographers and UI artisans"}
+        ]
+      }
+    },
+    "mobile": {
+      "drawer": "Side slide Sheet with accordion nav, direct email access, and CTA button"
+    }
+  },
+  "page_sections_spec": [
+    {
+      "id": "hero",
+      "surface": "hero_dark",
+      "layout": "Asymmetric 12-column grid. Left 7 cols: Brand pill 'Sovereign Intelligence', H1 'Your personal AI. Sovereign, private, and owned by you.', subhead, Primary CTAs ('Get Agent One' + 'Explore hussh Shop'), and 100% on-device · encrypted · free for life trust badge. Right 5 cols: Interactive 3D/Canvas Shh Mascot with glowing gold pulsing halo ring, live interactive security telemetry card floating beneath."
+    },
+    {
+      "id": "products_bento",
+      "surface": "warm_ivory_page",
+      "layout": "Tetris Bento Grid with 3 cards: 1) Agent One Dominant visual (col-span-12 lg:col-span-7) with interactive tabs showing live briefing simulator and privacy toggles. 2) Puppy One (col-span-12 md:col-span-6 lg:col-span-5) with playful 3D companion card and habit loop. 3) Tag One (col-span-12) Early access interactive hardware card with instant email waitlist trigger."
+    },
+    {
+      "id": "how_it_works",
+      "surface": "warm_ivory_page",
+      "layout": "3-step visual narrative: Step 1 (Sign in with Google or Apple / Zero identity storage), Step 2 (Choose what to connect - Health, Mail, Calendar, Financials), Step 3 (Get your first morning brief). Features dynamic interactive step preview switcher."
+    },
+    {
+      "id": "marketplace",
+      "surface": "warm_ivory_page",
+      "layout": "Editorial 4-step interactive card rail: 1. Package Your Data, 2. Set Your Floor Price, 3. Review Anonymous Bids, 4. Instant Sovereign Payout. 'Your info. Your price. Your call.'"
+    },
+    {
+      "id": "ai_tools_band",
+      "surface": "dark_band",
+      "layout": "High-contrast dark band 'Works seamlessly with your AI tools' featuring interactive logos/chips for Gemini, Siri, ChatGPT, Claude, Grok, Meta AI, Copilot, with privacy shield connection status."
+    },
+    {
+      "id": "closing_cta",
+      "surface": "hero_dark",
+      "layout": "Dramatic dark closing section with glowing amber backdrop, direct email reservation box for Agent One Early Access, and live toast confirmation."
+    },
+    {
+      "id": "footer",
+      "surface": "footer_dark",
+      "layout": "6-column mega footer: Product, Directory, Enterprise, Knowledge, Company, Trust Rights & Gratitude, plus sovereign copyright and privacy statement."
+    }
+  ],
+  "visual_enhancers": {
+    "mascot_svg_spec": "Custom crafted high-fidelity SVG/Canvas Shh Mascot with gold finger-to-mouth iconic pose, gold concentric pulsing halo rings, dark sleek specular gradients, and interactive mouse-tilt parallax.",
+    "background_patterns": "Delicate SVG wavy topological lines (opacity 0.08) in hero section referencing the original hussh brand identity, plus fine 1px grid borders in the bento layout.",
+    "buttons": "Pill-shaped gold buttons with dark text (bg-amber-400 hover:bg-amber-300 text-neutral-950 font-semibold px-6 py-3 rounded-full shadow-[0_0_20px_rgba(245,166,35,0.25)] transition-all active:scale-95)."
+  },
+  "motion": {
+    "engine": "motion/react",
+    "stagger_children": 0.08,
+    "hover_lift": "hover:-translate-y-1 transition-transform duration-200",
+    "halo_pulse": "animate-pulse duration-3000",
+    "respect_reduced_motion": true
+  },
+  "accessibility": {
+    "contrast_standard": "APCA & WCAG AA compliant on all defined surfaces",
+    "focus_rings": "focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none",
+    "testing_attributes": "All buttons, inputs, dropdown items, tabs, and interactive cards have explicit data-testid attributes (e.g. data-testid='hero-cta-button', data-testid='nav-dropdown-agent-one', data-testid='tag-one-email-input')."
+  },
+  "instructions_to_main_agent": [
+    "1. Replace frontend/src/index.css font imports with @fontsource-variable/plus-jakarta-sans and set theme tokens.",
+    "2. Implement the full responsive layout in frontend/src/pages/Home.tsx (and supporting modular components in frontend/src/components/hussh/).",
+    "3. Build the Shh Mascot component with SVG/Canvas + Motion to give it life, sleek 3D depth, and glowing gold halo.",
+    "4. Ensure email submissions (for Agent One and Tag One) connect to backend /api/signup or use Sonner toast with realistic interactive feedback.",
+    "5. Implement all 5 nav dropdowns using custom animated menus or @base-ui/react / shadcn dropdowns with rich preview items.",
+    "6. Ensure all interactive elements include exact data-testid attributes."
+  ]
+}

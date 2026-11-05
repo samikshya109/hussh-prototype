@@ -1,0 +1,162 @@
+{
+  "iteration": 3,
+  "app": "hussh landing page (farm-ts)",
+  "mode": "retest",
+  "passed": 15,
+  "failed": 0,
+  "flaky": 1,
+  "blocked": 0,
+  "test_error": 0,
+  "summary": "Retest covering the new acceptance matrix (AI brand chip overflow fix, section rhythm, hero badge motion, Puppy One logo-free image, marketplace USP redesign, closing CTA primary-button match) plus full regression. Backend signups suite (3/3) and 15 browser check runs across the iteration all pass. The retired marketplace step-tour check (market-step-*/market-price-slider/market-approve-button/market-earned) was removed and replaced by marketplace-usp-section, which verifies the new static USP layout (heading, 4 usp cards with icon+title+body, decorative illustration, market-join-link->#get-started, 2-row desktop / single-column mobile layout, no step tabs or phone mock). Regenerated a fresh Clerk sign-in ticket for jane+clerk_test@example.com (previous one expired) and auth-entry-signed-in now passes again.",
+  "checks": [
+    {
+      "criterion": "Email signups (API)",
+      "name": "backend/tests/test_tscheck_signups.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "3 pytest cases passed in 0.47s against the running server on :8001 (POST /api/signups 201/409/422)."
+    },
+    {
+      "criterion": "User bug: AI brand chips text falling out (Claude, ChatGPT, Siri)",
+      "name": "ai-brand-chips-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440/1024/768px all 7 ai-brand-<name> chips (gemini, siri, chatgpt, claude, grok, meta-ai, copilot) have scrollWidth<=clientWidth and scrollHeight<=clientHeight (text/logo not clipped), pairwise bounding-box overlap area <5px2, and all stay within the viewport (x>=-1, right edge<=width+1); page scrollWidth==clientWidth (no overflow) at all three. At 390px the chips render as a wrapped <ul> list, all 7 visible, no clipping, no page overflow."
+    },
+    {
+      "criterion": "Even section rhythm",
+      "name": "section-rhythm-padding",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440px, computed padding-top/bottom = 96px for #products, #how-it-works (home-how), comparison section (home-compare), #marketplace (home-marketplace), #ecosystem (home-ecosystem), #get-started (home-cta). At 390px all = 60px. Hero symmetry: #top padding-top (169px) minus fixed-nav height (73px) = 96px = #top padding-bottom (96px), a 0px variance."
+    },
+    {
+      "criterion": "Hero badge motion",
+      "name": "hero-badge-motion",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1024px, home-badge-brief and home-badge-device computed transform matrices differ between t=0 and t=2.2s (gentle drift confirmed). With prefers-reduced-motion:reduce both badges' transforms are 'none' at both timestamps (no motion). At 390px both badges report isVisible()=false (hidden below 640px as specified)."
+    },
+    {
+      "criterion": "Puppy One image has no Apple logo",
+      "name": "puppy-one-no-apple-logo",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "product-card-puppy-one's <img> src = https://static.prod-images.emergentagent.com/.../451d77a2eee3bcc77735e2b361b8524852e0eb099c81f4f981060f2920adcc20.jpeg -- contains the expected logo-free asset hash."
+    },
+    {
+      "criterion": "Marketplace redesigned as USPs",
+      "name": "marketplace-usp-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "#marketplace shows 'Your info. Your price. Your call.' heading plus market-usp-share/price/approve/earn, each with >=1 icon/img, title+body text (>10 chars), and a decorative aria-hidden illustration found in-section. 0 elements matched market-step-*, market-price-slider, market-approve-button, market-earned (step tour/phone fully retired). market-join-link href=#get-started, click updates location.hash. Desktop: share/price share the same row y (diff<10px), approve/earn share the next row y (diff<10px), second row starts below first row. Mobile 390px: all 4 cards share the same x (single column), increasing y, no page horizontal overflow."
+    },
+    {
+      "criterion": "Closing CTA button = primary",
+      "name": "closing-cta-primary-button",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "agent-one-signup-submit-button computed background rgb(232,181,107) / color rgb(31,31,34), identical to nav-get-agent-one-button's computed style. Submitting a fresh tscheck- email in #get-started showed a success confirmation message."
+    },
+    {
+      "criterion": "Regression + WCAG",
+      "name": "wcag-aa-audit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: axe wcag2a/aa/21a/21aa clean at 1440 and 390 (reduced motion, settled), skip-link keyboard focus, and /sign-in audit all verified."
+    },
+    {
+      "criterion": "Regression: comparison table keyboard access",
+      "name": "comparison-table-access",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: focusable region + 0 scrollable-region-focusable violations at 1440/390px; mobile stacked cards show all 6 rows with both hussh/Cloud AI values."
+    },
+    {
+      "criterion": "Regression: dark nav + brand",
+      "name": "nav-brand-dark",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: header bg rgb(31,31,34) top and scrolled; nav-get-agent-one-button gold pill rgb(232,181,107)/rgb(31,31,34)."
+    },
+    {
+      "criterion": "Regression: nav dropdowns",
+      "name": "nav-dropdowns",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: all 5 dropdowns open inside viewport with visible CTA to #get-started."
+    },
+    {
+      "criterion": "Regression: left alignment / no overflow",
+      "name": "layout-alignment",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: section headings all x=132 at 1440px; no horizontal overflow at 375/1440px."
+    },
+    {
+      "criterion": "Regression: mobile text fit (chips/buttons)",
+      "name": "mobile-text-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: no overflow at 375px across hero chips, quick-links, step tabs, submit buttons."
+    },
+    {
+      "criterion": "Regression: closing CTA flowing lines + signup",
+      "name": "closing-cta-lines",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: WaveLines SVG present behind card, fresh-email signup success confirmed."
+    },
+    {
+      "criterion": "Regression: all links work",
+      "name": "links-navigate-correctly",
+      "lane": "browser",
+      "status": "flaky",
+      "evidence": "First two runs failed on the Puppy One quick-link scroll assertion (product-card-puppy-one reported viewport ratio 0 right after the hash change, before the smooth-scroll/anchor settled); third rerun and a manual repro with extra settle time both landed the card fully in view (boundingBox y=0..13px, i.e. just under the fixed nav) and the check passed end-to-end including dropdown link, logo, back-to-top and sign-in/back-home links. Classified as a check-timing flake, not a product bug -- no backend/API signal of a real navigation failure."
+    },
+    {
+      "criterion": "Regression: how-it-works tour",
+      "name": "how-it-works-tour",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: pause toggle, step-4 panel, arrow-key step transitions verified."
+    },
+    {
+      "criterion": "Regression: ecosystem rings section",
+      "name": "ecosystem-rings-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: legend hover/focus sets ring-device/ring-shield active states; mobile chip list has no overflow."
+    },
+    {
+      "criterion": "Regression: email signups (UI)",
+      "name": "email-signups-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name: Tag One invalid/success/duplicate(409), Agent One success, mobile submit button all verified."
+    },
+    {
+      "criterion": "Regression: auth entry (signed-in)",
+      "name": "auth-entry-signed-in",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Regenerated a fresh 1hr Clerk sign-in ticket for jane+clerk_test@example.com via POST https://api.clerk.com/v1/sign_in_tokens (previous iteration's ticket had expired, confirmed by a 400 on first attempt) and patched it into the check; /sign-in?__clerk_ticket=... now completes and nav-user-menu becomes visible."
+    }
+  ],
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "note",
+      "detail": "Retired marketplace-tour.mjs (and its .meta.json) per the briefing -- the interactive step tour / phone mock / price slider / Approve-Decline flow no longer exist in the UI, replaced by marketplace-usp-section.mjs covering the new static USP bento (market-usp-share/price/approve/earn)."
+    },
+    {
+      "type": "note",
+      "detail": "links-navigate-correctly is flaky on the Puppy One quick-link viewport assertion (scroll/anchor settle timing right after the hash change, not a product defect) -- passed on rerun and on a manual repro with a short settle delay. No action needed unless it fails 2+ times in future reruns."
+    },
+    {
+      "type": "note",
+      "detail": "auth-entry-signed-in embeds a short-lived (1hr TTL) Clerk sign-in token for jane+clerk_test@example.com, regenerated this iteration. On next retest after expiry, regenerate again (POST https://api.clerk.com/v1/sign_in_tokens with CLERK_SECRET_KEY, user looked up via GET /v1/users?email_address=...) and patch the `ticket` constant in auth-entry-signed-in.mjs."
+    }
+  ],
+  "retest_needed": false
+}

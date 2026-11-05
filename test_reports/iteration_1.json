@@ -1,0 +1,89 @@
+{
+  "iteration": 1,
+  "app": "hussh landing page (farm-ts)",
+  "mode": "generate",
+  "passed": 8,
+  "failed": 1,
+  "flaky": 0,
+  "blocked": 0,
+  "test_error": 0,
+  "summary": "Backend signups suite (3/3) and 6 of 7 browser checks passed. One real WCAG AA bug found: the comparison table's horizontally-scrollable wrapper on mobile is not keyboard-focusable (axe color-contrast false-positive during entrance-animation was investigated and ruled out after waiting for animations to settle — re-ran clean).",
+  "checks": [
+    {
+      "criterion": "Email signups (API)",
+      "name": "backend/tests/test_tscheck_signups.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /api/signups happy path -> 201 with id/email/source; duplicate (email,source) -> 409 'already on the list'; invalid email -> 422. All 3 pytest cases passed in 0.75s against the running server on :8001."
+    },
+    {
+      "criterion": "All links work (user's bug report)",
+      "name": "links-navigate-correctly",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Hero CTAs -> #get-started/#how-it-works, product quick-links -> #agent-one/#puppy-one/#tag-one, product card links -> #get-started/#products, header+footer logo -> #top, footer back-to-top -> scrollY<50, a nav dropdown link scrolled to its anchor, nav-account-button -> /sign-in, auth-back-home-link -> / all verified via hash/URL assertions and viewport checks. No console errors."
+    },
+    {
+      "criterion": "How it works step tour",
+      "name": "how-it-works-tour",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "how-autoplay-toggle default text 'Pause the tour', toggled to 'Play the tour'; how-step-4 click shows panel text 'Three things worth a look'; how-step-1 click sets aria-selected=true; ArrowDown from step 1 moves aria-selected to how-step-2."
+    },
+    {
+      "criterion": "Marketplace step tour",
+      "name": "marketplace-tour",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "market-price-slider=30 -> verdict 'Below your $30 price' + market-approve-button disabled; slider=10 -> verdict 'Meets your $10 price', Approve enabled, click shows toast 'Approved. $15 goes to you.'; market-step-4 shows market-earned = $57.00 (from $42.00 base)."
+    },
+    {
+      "criterion": "Four rings AI section (light)",
+      "name": "ecosystem-rings-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "All 7 brand chips (gemini, siri, chatgpt, claude, grok, meta-ai, copilot) visible at desktop; hovering rings-legend-device sets ring-device data-active=true (and ring-you=false); focusing rings-legend-shield sets ring-shield data-active=true. At 390px viewport, document.scrollWidth==clientWidth (no horizontal scroll) and brand chips render via the mobile <ul> list."
+    },
+    {
+      "criterion": "Email signups (UI)",
+      "name": "email-signups-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Tag One form: invalid email -> 'Please enter a valid email address.'; fresh tscheck- email -> \"You're on the list...\" + toast; resubmitting the same email -> 'already on the list' message (409 from API, expected). Agent One form: fresh email -> success message mentioning 'inbox'/'on the way'. At 390px the submit button still exposes visible text as its accessible name."
+    },
+    {
+      "criterion": "WCAG 2.1 AA",
+      "name": "wcag-aa-audit",
+      "lane": "browser",
+      "status": "failed",
+      "evidence": "axe-core (wcag2a/aa, wcag21a/aa) clean on desktop 1440 and on /sign-in (Clerk markup excluded). At mobile 390 it reports a 'scrollable-region-focusable' SERIOUS violation on the comparison table wrapper `<div class=\"... overflow-x-auto ...\">` in src/pages/Home.tsx (~line 45): the horizontally scrollable region has no tabindex/keyboard focus path, so keyboard-only users on mobile cannot scroll the hussh-vs-cloud-AI comparison table. (A separate transient color-contrast flag on the two floating hero badges was investigated: it only appears while the motion/react entrance fade-in is mid-transition; after waiting 2s for animations to settle the audit is clean, so that one is not a real bug.)"
+    },
+    {
+      "criterion": "Auth entry",
+      "name": "auth-entry-signed-in",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "/sign-in and /sign-up both render auth-form-panel with 'Continue with Google' visible. Using a Clerk backend-API sign-in ticket for jane+clerk_test@example.com (per test_credentials.md playbook), /sign-in?__clerk_ticket=... completes and nav-user-menu becomes visible, confirming the signed-in nav state."
+    }
+  ],
+  "bugs": [
+    {
+      "severity": "medium",
+      "criterion": "WCAG 2.1 AA",
+      "check": "wcag-aa-audit",
+      "description": "On mobile (390px), the comparison table's `overflow-x-auto` scroll wrapper (src/pages/Home.tsx, the <table> section around line 45) is a scrollable region with no keyboard access (axe rule 'scrollable-region-focusable', impact: serious). Keyboard-only users cannot pan the table horizontally. Fix: add tabIndex={0} and an accessible role/label (e.g. role=\"region\" aria-label=\"...\") to the scrollable wrapper div.",
+      "evidence": "axe-core violation node: `<div class=\"mt-12 overflow-x-auto rounded-[28px] bg-white ...\">` target `.overflow-x-auto`; screenshot /root/.emergent/automation_output/20261105_050947_323/wcag-aa-audit-failure.png shows the mobile hero render at the point of failure (table is further down the page)."
+    }
+  ],
+  "action_items": [
+    {
+      "type": "fix_recommended",
+      "detail": "Add tabIndex={0} (and a descriptive aria-label/role=\"region\") to the comparison table's overflow-x-auto wrapper in src/pages/Home.tsx so it satisfies WCAG 2.1.1 (scrollable-region-focusable) on mobile."
+    },
+    {
+      "type": "note",
+      "detail": "auth-entry-signed-in embeds a short-lived Clerk sign-in token (1hr TTL) generated via the Clerk backend API for jane+clerk_test@example.com. On retest after expiry, regenerate a fresh token (see test_credentials.md playbook) and patch the `ticket` constant in /app/.emergent/scripts/checks/auth-entry-signed-in.mjs before re-running by name."
+    }
+  ],
+  "retest_needed": true
+}

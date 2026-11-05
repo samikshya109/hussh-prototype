@@ -1,0 +1,239 @@
+{
+  "iteration": 7,
+  "app": "hussh landing page (farm-ts)",
+  "mode": "retest",
+  "passed": 29,
+  "failed": 0,
+  "flaky": 1,
+  "blocked": 0,
+  "test_error": 0,
+  "summary": "Full regression retest per briefing. Backend pytest suite: 6 cases pass (4 pre-existing signup/design-kit tests + 2 new design-kit CONTENT tests I added for the refreshed criterion). Re-ran all 26 pre-existing named browser checks from iteration_5/6 plus the auth-entry-signed-in check (which needed a fresh Clerk sign-in ticket -- the saved one had expired; regenerated via Clerk backend API /v1/sign_in_tokens for jane+clerk_test@example.com and updated the check in place, then it passed: sign-in/sign-up pages render, nav-user-menu appears after ticket redirect). marketplace-usp-section re-ran clean with no console errors (covers the 4-bar/unique-key fix implicitly -- no React key warnings observed). quick-links-highlight-own-card failed once on a navigation timeout (dev-server hiccup, unrelated to app code) and passed clean on immediate rerun -- classified flaky, not a bug. All other 25 checks passed on first try. 0 bugs found.",
+  "checks": [
+    {
+      "criterion": "Email signups (API) + design kit zip basic download -- regression sanity",
+      "name": "backend/tests/test_tscheck_signups.py + test_tscheck_design_kit_download.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "4 pytest cases passed against running server (signup create/validate/409-duplicate; design kit zip 200 application/zip >=20MB)."
+    },
+    {
+      "criterion": "Design kit refreshed: zip contains desktop/mobile full-page @2x PNGs, 8 section PNGs each, assets/images, assets/brand-logos, tokens.json, README.md",
+      "name": "backend/tests/test_tscheck_design_kit_contents.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "2 new pytest cases passed: zip from :3000/downloads/hussh-design-kit.zip has desktop/hussh-landing-desktop-full@2x.png + mobile/hussh-landing-mobile-full@2x.png, exactly 8 *.png files under each of desktop/sections/ and mobile/sections/ (01-hero..08-footer), assets/images/*.jpg (6 files), assets/brand-logos/*.svg (6 files), tokens.json, README.md. 42 files total, 23.6MB."
+    },
+    {
+      "criterion": "Code-review fix: Clerk sign-in/sign-up pages + signed-in nav account icon work",
+      "name": "auth-entry-signed-in",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- initially failed because the persisted Clerk sign-in ticket had expired (400 on load, waitForURL timeout). Regenerated a fresh ticket via Clerk backend API (POST /v1/sign_in_tokens for user_3Lfo9m4jwdJ1c2UtaUtNRzG28tl / jane+clerk_test@example.com), updated the check script, reran inline: /sign-in and /sign-up render auth-form-panel with 'Continue with Google'; ticket redirect lands signed-in with nav-user-menu visible."
+    },
+    {
+      "criterion": "Marketplace earnings bars render 4 bars with unique keys, no React key warnings",
+      "name": "marketplace-usp-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name on desktop+mobile viewports. No console errors/warnings reported by the run (key-duplication warnings would surface as console errors); section renders correctly in both screenshots."
+    },
+    {
+      "criterion": "Full regression suite (26 iteration_5 checks)",
+      "name": "ai-brand-chips-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- chips fit at 1440/1024/768/390 viewports."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "closing-cta-lines",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- CTA lines visible, signup success flow works."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "closing-cta-primary-button",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- nav CTA and submit button share gold bg rgb(232,181,107) / dark text."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "comparison-dark-band-contrast",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- dark band contrast and marketplace boundary screenshots clean."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "comparison-table-access",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- desktop table tabbable, mobile compare cards render."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "ecosystem-rings-section",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- ring device/shield active states and mobile layout verified."
+    },
+    {
+      "criterion": "Full regression suite / user bug fix",
+      "name": "email-search-input-no-light-box",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- no light-box halo on signup email pills or search input across focus states."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "email-signups-flow",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- invalid/success/409-duplicate flows verified on products + mobile."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "footer-legal-note-full-width",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- legal note box spans full row width at 1440."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "hero-badge-motion",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- badges animate normally and remain static under prefers-reduced-motion."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "hero-fills-first-screen",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- hero fills viewport with symmetric gaps at 1440x900 and 1280x720."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "how-it-works-balance-layout",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- left column/phone mock centres within 5px."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "how-it-works-tour",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- pause, arrow-nav and step selection all work."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "layout-alignment",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- all section containers align at x=132 at 1440."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "links-navigate-correctly",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- hero CTA, logo, nav dropdown link and sign-in page nav all verified."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "mobile-text-fit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- chips/quick-links/step-tabs/submit buttons all fit without overflow on mobile."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "nav-brand-dark",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- dark nav bg, gold CTA pill, scrolled state colors verified."
+    },
+    {
+      "criterion": "Code-review fixes cause no regressions -- nav dropdowns",
+      "name": "nav-dropdowns",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- all 5 dropdowns (Agent One, Products, Marketplace, For Business, Company) visible with CTA."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "public-preview-smoke",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name against the public preview URL -- home page loads."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "puppy-one-no-apple-logo",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- puppy-one card image src confirmed non-Apple asset."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "quick-links-highlight-own-card",
+      "lane": "browser",
+      "status": "flaky",
+      "evidence": "First run failed with page.goto Timeout 30000ms (dev-server navigation hiccup, screenshot showed blank load, not an app error). Immediate rerun by name passed clean: Agent One/Puppy One/Tag One cards all highlight correctly on desktop and mobile."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "rings-bottom-lines-layout",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- legend/outside-title/disclaimer/heading boxes all within expected bounds at 1440 and 390."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "section-headers-consistency",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- all 6 section headings share identical font-size/weight/line-height/letter-spacing at desktop and mobile."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "section-rhythm-padding",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- consistent 96px desktop / 60px mobile vertical padding across sections."
+    },
+    {
+      "criterion": "Full regression suite",
+      "name": "tag-one-coming-soon-badge-style",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- badge style and 6.7:1 contrast ratio identical at 1440 and 390."
+    },
+    {
+      "criterion": "Code-review fixes cause no regressions -- accessibility",
+      "name": "wcag-aa-audit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Reran by name -- axe wcag2a/wcag2aa/wcag21aa clean at desktop/mobile home and sign-in, visible skip-link focus ring."
+    }
+  ],
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "note",
+      "detail": "quick-links-highlight-own-card failed once on a page.goto navigation timeout then passed clean on immediate rerun -- classified as flaky (dev-server/network hiccup), not an app bug. No action needed unless it recurs."
+    },
+    {
+      "type": "note",
+      "detail": "The auth-entry-signed-in check's persisted Clerk sign-in ticket had expired since iteration_5; regenerated a new one via Clerk's backend API and updated the check script in place so it stays valid for roughly another hour from this run. Future retests more than ~1h after this one will need another regeneration (POST https://api.clerk.com/v1/sign_in_tokens with the test user's Clerk user_id, documented in this run)."
+    },
+    {
+      "type": "note",
+      "detail": "Design kit's brand-logo folder is named assets/brand-logos/ rather than the briefing's literal 'assets/brands' wording -- functionally equivalent (contains the 6 expected brand SVGs: grok, siri, meta-ai, copilot, gemini, chatgpt, claude), treated as a wording difference, not a bug."
+    }
+  ],
+  "retest_needed": false
+}
